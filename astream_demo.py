@@ -23,15 +23,10 @@ print("=" * 60)
 async def run():
     async for event in agent.astream_events(
         {"messages": [("human", "今天天气怎么样")]},
-        version="v2"
+        stream_mode="messages",
+        version="v2",
     ):
-        if event["event"] == "on_chat_model_stream":
-            chunk = event["data"]["chunk"]
-            for item in chunk.content:
-                if isinstance(item, dict) and item.get("type") == "text":
-                    print(item.get("text", ""), end="", flush=True)
-                elif isinstance(item, str):
-                    print(item, end="", flush=True)
+        print(event)
 
 import asyncio
 asyncio.run(run())

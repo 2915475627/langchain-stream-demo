@@ -21,8 +21,10 @@ print("=" * 60)
 print("开始流式响应...")
 print("=" * 60)
 
+# stream_mode="messages" 使得推理过程也能流式响应
 for chunk in agent.stream(
     {"messages": [("user", "你好,今天天气怎么样")]},
-    stream_mode=""
+    stream_mode="messages",
+    version="v2"
 ):
-        print(chunk[0].content)
+        print(chunk)
